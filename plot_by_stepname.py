@@ -23,10 +23,13 @@ def process_dataframe(df: pd.DataFrame, trim_seconds: float = 1.0) -> pd.DataFra
     df['VR'] = df['VR'].astype(str)
     df = df.sort_values(['CurrentTrial', 'CurrentStep', 'elapsed_time'])
     grouped = df.groupby(['CurrentTrial', 'CurrentStep'])
-    df = grouped.apply(lambda x: x[
-        (x['elapsed_time'] >= trim_seconds) &
-        (x['elapsed_time'] <= x['elapsed_time'].max() - trim_seconds)
-    ]).reset_index(drop=True)
+    df = grouped.apply(
+        lambda x: x[
+            (x['elapsed_time'] >= trim_seconds) &
+            (x['elapsed_time'] <= x['elapsed_time'].max() - trim_seconds)
+        ],
+        include_groups=False
+    ).reset_index(drop=True)
     df = df[(df['GameObjectPosX'] != 0) | (df['GameObjectPosZ'] != 0)]
     return df
 

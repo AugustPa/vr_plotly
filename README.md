@@ -16,10 +16,15 @@ CSV files must include at least these columns:
 
 ## Usage
 ```bash
+# all subfolders
 python plot_by_stepname.py /path/to/data_root
+
+# only newest subfolder (fast for testing)
+python plot_by_stepname.py /path/to/data_root --latest-only
+# also accepts `-latest-only` or `-L` as shorthand
 ```
 - `data_root` should contain subfolders with the CSV logs; each subfolder outputs `<subfolder>_ant_positions_by_step.html` inside it.
-- Optional: adjust `trim_seconds` in `main()` to change leading/trailing trim.
+- Optional: `--trim-seconds 0.5` to change leading/trailing trim.
 
 ## Environment
 - Python 3.10+
